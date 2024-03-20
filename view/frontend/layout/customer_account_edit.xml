@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block class="Magento\Customer\Block\Form\Edit" name="customer_edit_custom_attribute" template="EW_Core::form/custom_attribute.phtml">
+                <arguments>
+                    <argument name="attribute_vm" xsi:type="object">EW\Core\ViewModel\CustomerHobbiesAttribute</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

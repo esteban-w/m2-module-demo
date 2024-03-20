@@ -1,0 +1,73 @@
+<?php
+
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\Escaper;
+use Magento\Catalog\Model\Product;
+use Magento\Framework\App\ActionInterface;
+use EW\Core\ViewModel\FeaturedProducts;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var FeaturedProducts $featuredProductsVM */
+
+$featuredProductsVM = $block->getData('featured_products_vm');
+$products = $featuredProductsVM->getFeaturedProducts();
+?>
+<?php if (count($products)):?>
+    <section class="featured-products">
+        <h2 class="featured-heading"><?= __('Features') ?></h2>
+        <p class="featured-subheading"><?= __('Here\'s what\'s trending on B&O right now') ?></p>
+        <div class="product-cards">
+        <?php /** @var $product Product */ ?>
+        <?php foreach ($products as $product):?>
+            <article class="product-card">
+                <a class="product-image" href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                    <?= $featuredProductsVM->getProductImage($product, 'category_page_list')->toHtml() ?>
+                </a>
+                <h3 class="product-title">
+                    <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                        <?= $product->getName() ?>
+                    </a>
+                </h3>
+                <p class="product-description">
+                    <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                        <?= $product->getShortDescription() ?>
+                    </a>
+                </p>
+                <?= $featuredProductsVM->getProductPriceHtml($block, $product) ?>
+                <?php if ($product->isSaleable()):?>
+                    <?php $addToCartData = $featuredProductsVM->getAddToCartData($product); ?>
+                    <div class="product-actions">
+                        <form data-role="tocart-form"
+                              data-product-sku="<?= $escaper->escapeHtml($product->getSku()) ?>"
+                              action="<?= $escaper->escapeUrl($addToCartData['action']) ?>"
+                              method="post">
+                            <?= $block->getBlockHtml('formkey') ?>
+                            <input type="hidden"
+                                   name="product"
+                                   value="<?= /* @noEscape */ $product->getEntityId() ?>">
+                            <input type="hidden"
+                                   name="<?= /* @noEscape */ ActionInterface::PARAM_NAME_URL_ENCODED ?>"
+                                   value="<?= $addToCartData[ActionInterface::PARAM_NAME_URL_ENCODED] ?>">
+                            <button type="submit"
+                                    title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                    class="action tocart">
+                                <span class="action-text"><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                            </button>
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </article>
+        <?php endforeach; ?>
+        </div>
+    </section>
+    <script type="text/x-magento-init">
+    {
+        "[data-role=tocart-form]": {
+            "catalogAddToCart": {
+                "product_sku": "<?= $escaper->escapeJs($product->getSku()) ?>"
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<?php
+
+use Magento\Customer\Block\Form\Edit;
+use Magento\Framework\Escaper;
+use EW\Core\ViewModel\CustomerHobbiesAttribute;
+
+/** @var Edit $block */
+/** @var Escaper $escaper */
+/** @var CustomerHobbiesAttribute $attributeViewModel */
+
+$attributeViewModel = $block->getData('attribute_vm');
+$attributeCode = $attributeViewModel->getAttributeCode();
+$attributeValue = $attributeViewModel->getCustomerAttributeValue($block->getCustomer()->getId());
+?>
+<div class="field">
+    <label class="label" for="<?= $escaper->escapeHtmlAttr($attributeCode) ?>">
+        <span><?= $escaper->escapeHtml(__($attributeViewModel->getAttributeLabel())) ?></span>
+    </label>
+    <div class="control">
+        <input type="text"
+               id="<?= $escaper->escapeHtmlAttr($attributeCode) ?>"
+               class="input-text"
+               name="<?= $escaper->escapeHtmlAttr($attributeCode) ?>"
+               value="<?= $attributeValue ?>"
+               title="<?= $escaper->escapeHtml(__($attributeViewModel->getAttributeLabel())) ?>">
+    </div>
+</div>
