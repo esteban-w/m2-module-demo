@@ -33,8 +33,10 @@ class AssignThemesSetup extends AbstractDataPatch
     {
         $this->moduleDataSetup->startSetup();
 
-        $themeOne = $this->themeCollectionFactory->create()->getThemeByFullPath('frontend/EW/one');
-        $themeTwo = $this->themeCollectionFactory->create()->getThemeByFullPath('frontend/EW/two');
+        $themeOne = $this->themeCollectionFactory->create()
+            ->getThemeByFullPath('frontend/' . CreateThemesSetup::THEME_TWO_CODE);
+        $themeTwo = $this->themeCollectionFactory->create()
+            ->getThemeByFullPath('frontend/' . CreateThemesSetup::THEME_TWO_CODE);
 
         // Assign theme one globally (default scope)
         if ($themeOneId = $themeOne->getId()) {
@@ -63,6 +65,9 @@ class AssignThemesSetup extends AbstractDataPatch
 
     public static function getDependencies(): array
     {
-        return [MainWebsiteAndStoreSetup::class];
+        return [
+            MainWebsiteAndStoreSetup::class,
+            CreateThemesSetup::class
+        ];
     }
 }
