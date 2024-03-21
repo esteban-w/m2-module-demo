@@ -22,7 +22,7 @@ $products = $featuredProductsVM->getFeaturedProducts();
         <?php foreach ($products as $product):?>
             <article class="product-card">
                 <a class="product-image" href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
-                    <?= $featuredProductsVM->getProductImage($product, 'category_page_list')->toHtml() ?>
+                    <?= $featuredProductsVM->getProductImage($product, 'mini_cart_product_thumbnail')->toHtml() ?>
                 </a>
                 <h3 class="product-title">
                     <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
