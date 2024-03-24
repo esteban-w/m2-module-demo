@@ -6,4 +6,7 @@
     <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
         <plugin name="custom_convert_quote_to_order_address" type="EW\Core\Plugin\ConvertQuoteToOrderAddress"/>
     </type>
+    <type name="Magento\Directory\Model\Currency">
+        <plugin name="currency_symbol_position" type="EW\Core\Plugin\PositionCurrencySymbol"/>
+    </type>
 </config>
