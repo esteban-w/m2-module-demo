@@ -57,7 +57,7 @@ class SetupCurrencyOptions extends AbstractDataPatch
 
         try {
             // Set currency symbol position to right value for website scope
-            $defaultWebsite = $this->storeManager->getWebsite();
+            $defaultWebsite = $this->storeManager->getWebsite(true);
             $this->configWriter->save(
                 self::XML_PATH_CURRENCY_SYMBOL_POSITION,
                 1,

@@ -47,7 +47,7 @@ class MainWebsiteAndStoreSetup extends AbstractDataPatch
             // Get default values
             $defaultStoreView = $this->storeManager->getDefaultStoreView();
             $defaultStoreGroupId = $defaultStoreView->getStoreGroupId();
-            $defaultWebsiteId = $defaultStoreView->getWebsiteId();
+            $defaultWebsiteId = $this->storeManager->getWebsite(true)->getId();
 
             // Configure default Website AT
             $this->setWebsiteConfig($defaultWebsiteId, 'general/country/default', 'AT');
